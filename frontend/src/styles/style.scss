@@ -1,0 +1,117 @@
+@use 'globals';
+
+.header {
+  padding: 25px 50px;
+
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+
+  background-color: #116acc;
+}
+
+.logo {
+  font-size: 48px;
+  line-height: 56px;
+  font-weight: 300;
+
+  color: white;
+}
+
+.nav {
+  &__links {
+    display: flex;
+  }
+
+  &__link-wrapper {
+    display: flex;
+
+    &:not(:first-child) {
+      margin-left: 25px;
+    }
+  }
+
+  &__link {
+    padding: 14px 24px;
+
+    background: #ffffff;
+
+    border-radius: 7px;
+
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+
+    color: #116acc;
+  }
+}
+
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 75vh;
+}
+
+.login-form {
+  padding: 50px 67px 50px 133px;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: #f3f4f6;
+  border-radius: 50px;
+
+  .title {
+    margin-bottom: 35px;
+  }
+}
+
+.title {
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 40px;
+}
+
+.input-label {
+  color: #182233;
+
+  &:not(:first-of-type) {
+    margin-top: 28px;
+  }
+}
+
+.input {
+  padding: 10px;
+  padding-left: 16px;
+  margin-left: 18px;
+
+  border-radius: 7px;
+  border: 0;
+}
+
+.input-submit {
+  background: #116acc;
+  border: 0;
+  border-radius: 7px;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+
+  color: #fff;
+
+  max-width: max-content;
+
+  padding: 14px 21px;
+  margin-top: 27px;
+}
+
+label[for='login-input'] {
+  transform: translateX(-70px);
+}
+
+label[for='password-input'] {
+  transform: translateX(-80px);
+}
