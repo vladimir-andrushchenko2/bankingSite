@@ -369,8 +369,67 @@ label[for='password-input'] {
 
 .history {
   margin-top: 50px;
+  padding: 25px 45px 65px;
+
+  position: relative;
 
   .table {
+    margin-top: 25px;
+
     max-width: max-content;
+
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  .head-row {
+    position: relative;
+  }
+
+  .head-row::before {
+    content: '';
+    width: 1229px;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background-color: #116acc;
+
+    border-radius: 15px;
+  }
+
+  .head-cell {
+    padding: 20px;
+    z-index: 1;
+    position: relative;
+
+    color: white;
+  }
+
+  .table-row {
+    position: relative;
+  }
+
+  .table-row::before {
+    content: '';
+    width: 1229px;
+    height: 2px;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    background-color: rgba(0, 82, 255, 0.1);
+
+    border-radius: 15px;
+  }
+
+  .cell {
+    padding: 20px;
+    text-align: center;
+
+    // border-bottom: 1px solid #000;
   }
 }

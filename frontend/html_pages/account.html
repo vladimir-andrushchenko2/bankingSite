@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Playfair+Display:wght@900&display=swap"
+    rel="stylesheet">
+  <title>Crypto</title>
+</head>
+
+<body>
+  <header class="header">
+    <a href="#" class="logo">Coin.</a>
+    <nav class="nav">
+      <ul class="nav__links">
+        <li class="nav__link-wrapper">
+          <a href="#" class="nav__link map-link">Банкоматы</a>
+        </li>
+        <li class="nav__link-wrapper">
+          <a href="#" class="nav__link accounts-link">Счета</a>
+        </li>
+        <li class="nav__link-wrapper">
+          <a href="#" class="nav__link currencies-link">Валюта</a>
+        </li>
+        <li class="nav__link-wrapper">
+          <a href="#" class="nav__link exit-link">Выйти</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <div id="app">
+    <main class="main">
+      <div class="account-page page">
+        <div class="row">
+          <h1 class="title">Просмотр счёта</h1>
+          <a href="#" class="go-back-link">
+            <span class="arr-left-symbol">←</span>
+            Вернуться назад
+          </a>
+        </div>
+
+        <div class="row">
+          <h2 class="account-id">№ 12455242373623463</h2>
+
+          <div class="balance-wrapper row">
+            <h3 class="block-title">Баланс</h3>
+            <p class="balance">31 235 ₽</p>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="gray-card">
+            <h3 class="block-title">Новый перевод</h3>
+            <form class="make-transfer-form">
+              <label class="input-label" for="receiver-account-number">Номер счёта получателя</label>
+              <input placeholder="Номер счёта" type="number" id="receiver-account-number" class="transfer-input input">
+
+              <label class="input-label" for="transfer-money-amount">Сумма перевода</label>
+              <input placeholder="Сумма" type="number" id="transfer-money-amount" class="transfer-input input">
+
+              <input class="transfer-submit" type="submit" value="Отправить">
+            </form>
+          </div>
+
+          <div class="white-card">
+            <h3 class="block-title">Динамика баланса</h3>
+
+            <div class="bar-chart-balance-wrapper">
+
+              <div class="bar-chart-balance-y-axis-wrapper">
+                <div class="bar-chart-balance">
+                  <div class="bar b1"></div>
+                  <div class="bar b2"></div>
+                  <div class="bar b3"></div>
+                  <div class="bar b4"></div>
+                  <div class="bar b5"></div>
+                  <div class="bar b6"></div>
+                </div>
+
+                <p class="bar-chart-y-axis">
+                  <span class="y-max">3000</span>
+                  <span class="y-start">0</span>
+                </p>
+              </div>
+
+              <div class="bar-chart-x-axis">
+                <span class="x-mark">мар</span>
+                <span class="x-mark">апр</span>
+                <span class="x-mark">май</span>
+                <span class="x-mark">июн</span>
+                <span class="x-mark">июл</span>
+                <span class="x-mark">авг</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="gray-card history">
+          <h3 class="block-title">История переводов</h3>
+          <table class="table">
+            <thead class="table-head">
+              <tr class="head-row">
+                <th class="head-cell">Счёт отправителя</th>
+                <th class="head-cell">Счёт получателя</th>
+                <th class="head-cell">Сумма</th>
+                <th class="head-cell">Дата</th>
+              </tr>
+            </thead>
+            <tbody class="table-body">
+              <tr class="table-row history-record">
+                <td class="cell sender">123545123541</td>
+                <td class="cell receiver">123545123541</td>
+                <td class="cell amount-money">- 1 234 ₽</td>
+                <td class="cell amount-money">31.12.2021</td>
+              </tr>
+              <tr class="table-row history-record">
+                <td class="cell sender">123545123541</td>
+                <td class="cell receiver">123545123541</td>
+                <td class="cell amount-money">+ 1 234 ₽</td>
+                <td class="cell amount-money">31.12.2021</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+
+</html>
