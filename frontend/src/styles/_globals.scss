@@ -35,3 +35,7 @@ fieldset {
 img {
   width: 100%;
 }
+
+button > * {
+  pointer-events: none;
+}
