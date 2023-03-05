@@ -309,14 +309,21 @@ label[for='password-input'] {
   line-height: 20px;
 }
 
+.bar-chart-balance-wrapper {
+  margin-top: 25px;
+}
+
 @mixin chart-width-and-padding {
   padding: 0 35px;
   width: 510px;
 }
 
-.bar-chart-balance {
-  @include chart-width-and-padding;
+@mixin chart-width-and-padding-xl {
+  padding: 0 35px;
+  width: 1000px;
+}
 
+@mixin bar-chart-styles {
   height: 165px;
 
   background: #ffffff;
@@ -325,6 +332,37 @@ label[for='password-input'] {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+}
+
+.bar-chart-balance-sm {
+  @include chart-width-and-padding;
+  @include bar-chart-styles;
+}
+
+.bar-chart-balance-xl {
+  @include chart-width-and-padding-xl;
+  @include bar-chart-styles;
+}
+
+.diff {
+  .bar {
+    background-color: #76ca66;
+
+    position: relative;
+  }
+
+  .spending {
+    width: 100%;
+
+    position: absolute;
+
+    bottom: 0;
+    left: 0;
+
+    background-color: #fd4e5d;
+
+    height: 50%;
+  }
 }
 
 .bar {
@@ -352,7 +390,7 @@ label[for='password-input'] {
 }
 
 .bar-chart-x-axis {
-  @include chart-width-and-padding;
+  @include chart-width-and-padding-xl;
   display: flex;
 }
 
@@ -360,10 +398,11 @@ label[for='password-input'] {
   font-weight: 700;
   font-size: 20px;
   line-height: 23px;
-  // letter-spacing: -0.02em;
+  width: 50px;
+  text-align: center;
 
   &:not(:first-child) {
-    margin-left: 37px;
+    margin-left: 31px;
   }
 }
 
@@ -431,5 +470,11 @@ label[for='password-input'] {
     text-align: center;
 
     // border-bottom: 1px solid #000;
+  }
+}
+
+.history-page {
+  .white-card {
+    margin-top: 50px;
   }
 }
