@@ -34,7 +34,10 @@
     </nav>
   </header>
 
-  <div id="app">
+  <div id="app"></div>
+
+
+  <template id="map-page">
     <main class="main">
       <div class="map-page page">
 
@@ -48,7 +51,527 @@
 
       </div>
     </main>
-  </div>
+  </template>
+
+  <template id="login-page">
+    <main class="main">
+      <div class="form-wrapper">
+        <form class="login-form">
+          <h1 class="title">Вход в аккаунт</h1>
+          <label for="login-input" class="input-label">
+            Логин
+            <input class="input" placeholder="Логин" type="text" id="login-input" required>
+          </label>
+          <label for="password-input" class="input-label">
+            Пароль
+            <input class="input" placeholder="Пароль" type="password" id="password-input" required>
+          </label>
+          <input class="input-submit" type="submit" value="Войти">
+        </form>
+      </div>
+    </main>
+  </template>
+
+  <template id="accounts-page">
+    <main class="main">
+      <div class="accounts-page page">
+        <div class="row">
+
+          <div class="accounts-header row">
+            <h1 class="title">Ваши счета</h1>
+            <select aria-label="sorting type" name="sorting-type" class="sort-select">
+              <option value="default">Сортировка</option>
+              <option value="id">По номеру</option>
+              <option value="money">По балансу</option>
+              <option value="time-used">По последней транзакции</option>
+            </select>
+          </div>
+
+          <button class="add-account-btn">
+            <span class="plus-symbol">+</span> Создать новый счёт
+          </button>
+
+        </div>
+
+        <ul class="accounts-list">
+          <li class="account-card card">
+            <h3 class="account-id">123456788932021</h3>
+            <p class="account-balance">3 523 ₽</p>
+            <div class="row">
+              <div class="account-info">
+                <h4 class="account-info-title">Последняя транзакция:</h4>
+                <div class="account-last-use-date">21 августа 2021</div>
+              </div>
+              <a href="#" class="account-open-link">Открыть</a>
+            </div>
+          </li>
+
+          <li class="account-card card">
+            <h3 class="account-id">123456788932021</h3>
+            <p class="account-balance">3 523 ₽</p>
+            <div class="row">
+              <div class="account-info">
+                <h4 class="account-info-title">Последняя транзакция:</h4>
+                <div class="account-last-use-date">21 августа 2021</div>
+              </div>
+              <a href="#" class="account-open-link">Открыть</a>
+            </div>
+          </li>
+
+          <li class="account-card card">
+            <h3 class="account-id">123456788932021</h3>
+            <p class="account-balance">3 523 ₽</p>
+            <div class="row">
+              <div class="account-info">
+                <h4 class="account-info-title">Последняя транзакция:</h4>
+                <div class="account-last-use-date">21 августа 2021</div>
+              </div>
+              <a href="#" class="account-open-link">Открыть</a>
+            </div>
+          </li>
+
+          <li class="account-card card">
+            <h3 class="account-id">123456788932021</h3>
+            <p class="account-balance">3 523 ₽</p>
+            <div class="row">
+              <div class="account-info">
+                <h4 class="account-info-title">Последняя транзакция:</h4>
+                <div class="account-last-use-date">21 августа 2021</div>
+              </div>
+              <a href="#" class="account-open-link">Открыть</a>
+            </div>
+          </li>
+
+          <li class="account-card card">
+            <h3 class="account-id">123456788932021</h3>
+            <p class="account-balance">3 523 ₽</p>
+            <div class="row">
+              <div class="account-info">
+                <h4 class="account-info-title">Последняя транзакция:</h4>
+                <div class="account-last-use-date">21 августа 2021</div>
+              </div>
+              <a href="#" class="account-open-link">Открыть</a>
+            </div>
+          </li>
+
+          <li class="account-card card">
+            <h3 class="account-id">123456788932021</h3>
+            <p class="account-balance">3 523 ₽</p>
+            <div class="row">
+              <div class="account-info">
+                <h4 class="account-info-title">Последняя транзакция:</h4>
+                <div class="account-last-use-date">21 августа 2021</div>
+              </div>
+              <a href="#" class="account-open-link">Открыть</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </main>
+  </template>
+
+  <template id="account-page">
+    <main class="main">
+      <div class="account-page page">
+        <div class="row">
+          <h1 class="title">Просмотр счёта</h1>
+          <a href="#" class="go-back-link">
+            <span class="arr-left-symbol">←</span>
+            Вернуться назад
+          </a>
+        </div>
+
+        <div class="row">
+          <h2 class="account-id">№ 12455242373623463</h2>
+
+          <div class="balance-wrapper row">
+            <h3 class="block-title">Баланс</h3>
+            <p class="balance">31 235 ₽</p>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="gray-card">
+            <h3 class="block-title">Новый перевод</h3>
+            <form class="make-transfer-form">
+              <label class="input-label" for="receiver-account-number">Номер счёта получателя</label>
+              <input placeholder="Номер счёта" type="number" id="receiver-account-number" class="transfer-input input">
+
+              <label class="input-label" for="transfer-money-amount">Сумма перевода</label>
+              <input placeholder="Сумма" type="number" id="transfer-money-amount" class="transfer-input input">
+
+              <input class="transfer-submit" type="submit" value="Отправить">
+            </form>
+          </div>
+
+          <div class="white-card">
+            <h3 class="block-title">Динамика баланса</h3>
+
+            <div class="bar-chart-balance-wrapper">
+
+              <div class="bar-chart-balance-y-axis-wrapper">
+                <div class="bar-chart-balance-sm">
+                  <div class="bar b1"></div>
+                  <div class="bar b2"></div>
+                  <div class="bar b3"></div>
+                  <div class="bar b4"></div>
+                  <div class="bar b5"></div>
+                  <div class="bar b6"></div>
+                </div>
+
+                <p class="bar-chart-y-axis">
+                  <span class="y-max">3000</span>
+                  <span class="y-start">0</span>
+                </p>
+              </div>
+
+              <div class="bar-chart-x-axis">
+                <span class="x-mark">мар</span>
+                <span class="x-mark">апр</span>
+                <span class="x-mark">май</span>
+                <span class="x-mark">июн</span>
+                <span class="x-mark">июл</span>
+                <span class="x-mark">авг</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="gray-card history">
+          <h3 class="block-title">История переводов</h3>
+          <table class="table">
+            <thead class="table-head">
+              <tr class="head-row">
+                <th class="head-cell">Счёт отправителя</th>
+                <th class="head-cell">Счёт получателя</th>
+                <th class="head-cell">Сумма</th>
+                <th class="head-cell">Дата</th>
+              </tr>
+            </thead>
+            <tbody class="table-body">
+              <tr class="table-row history-record">
+                <td class="cell sender">123545123541</td>
+                <td class="cell receiver">123545123541</td>
+                <td class="cell amount-money">- 1 234 ₽</td>
+                <td class="cell amount-money">31.12.2021</td>
+              </tr>
+              <tr class="table-row history-record">
+                <td class="cell sender">123545123541</td>
+                <td class="cell receiver">123545123541</td>
+                <td class="cell amount-money">+ 1 234 ₽</td>
+                <td class="cell amount-money">31.12.2021</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </template>
+
+  <template id="exchange-page">
+    <main class="main">
+      <div class="exchange-page page">
+
+        <div class="row">
+          <h1 class="title">Валютный обмен</h1>
+          <a href="#" class="go-back-link">
+            <span class="arr-left-symbol">←</span>
+            Вернуться назад
+          </a>
+        </div>
+
+        <div class="currencies-grid">
+          <div class="white-card your-currencies">
+            <div class="block-title">Ваши валюты</div>
+            <div class="item-row">
+              <span class="currency-name">ETC</span>
+              <span class="dots"></span>
+              <span class="price">6.3123545</span>
+            </div>
+            <div class="item-row">
+              <span class="currency-name">ETC</span>
+              <span class="dots"></span>
+              <span class="price">6.315131</span>
+            </div>
+            <div class="item-row">
+              <span class="currency-name">ETC</span>
+              <span class="dots"></span>
+              <span class="price">6.312354513</span>
+            </div>
+            <div class="item-row">
+              <span class="currency-name">ETC</span>
+              <span class="dots"></span>
+              <span class="price">6.23545131</span>
+            </div>
+            <div class="item-row">
+              <span class="currency-name">ETC</span>
+              <span class="dots"></span>
+              <span class="price">6.3</span>
+            </div>
+            <div class="item-row">
+              <span class="currency-name">ETC</span>
+              <span class="dots"></span>
+              <span class="price">6.312131</span>
+            </div>
+          </div>
+
+          <div class="gray-card changes-in-currencies">
+            <div class="block-title">Изменение курсов в реальном времени</div>
+            <div class="item-row">
+              <span class="currency-name">ETC</span>
+              <span class="dots"></span>
+              <span class="price">6.3123545131</span>
+              <span class="triangle red"></span>
+            </div>
+            <div class="item-row">
+              <span class="currency-name">ETC</span>
+              <span class="dots"></span>
+              <span class="price">6.3123545131</span>
+              <span class="triangle green"></span>
+            </div>
+            <div class="item-row">
+              <span class="currency-name">ETC</span>
+              <span class="dots"></span>
+              <span class="price">6.3123545131</span>
+              <span class="triangle green"></span>
+            </div>
+            <div class="item-row">
+              <span class="currency-name">ETC</span>
+              <span class="dots"></span>
+              <span class="price">6.3123545131</span>
+              <span class="triangle red"></span>
+            </div>
+            <div class="item-row">
+              <span class="currency-name">ETC</span>
+              <span class="dots"></span>
+              <span class="price">6.3123545131</span>
+              <span class="triangle green"></span>
+            </div>
+            <div class="item-row">
+              <span class="currency-name">ETC</span>
+              <span class="dots"></span>
+              <span class="price">6.3123545131</span>
+              <span class="triangle green"></span>
+            </div>
+            <div class="item-row">
+              <span class="currency-name">ETC</span>
+              <span class="dots"></span>
+              <span class="price">6.3123545131</span>
+              <span class="triangle red"></span>
+            </div>
+            <div class="item-row">
+              <span class="currency-name">ETC</span>
+              <span class="dots"></span>
+              <span class="price">6.3123545131</span>
+              <span class="triangle green"></span>
+            </div>
+            <div class="item-row">
+              <span class="currency-name">ETC</span>
+              <span class="dots"></span>
+              <span class="price">6.3123545131</span>
+              <span class="triangle green"></span>
+            </div>
+            <div class="item-row">
+              <span class="currency-name">ETC</span>
+              <span class="dots"></span>
+              <span class="price">6.3123545131</span>
+              <span class="triangle red"></span>
+            </div>
+            <div class="item-row">
+              <span class="currency-name">ETC</span>
+              <span class="dots"></span>
+              <span class="price">6.3123545131</span>
+              <span class="triangle green"></span>
+            </div>
+            <div class="item-row">
+              <span class="currency-name">ETC</span>
+              <span class="dots"></span>
+              <span class="price">6.3123545131</span>
+              <span class="triangle green"></span>
+            </div>
+          </div>
+
+          <div class="white-card exchange-form-wrapper">
+            <div class="block-title">Обмен валют</div>
+            <form class="exchange-currencies-form">
+
+              <div class="row">
+
+                <div class="form-inputs">
+                  <div class="row">
+                    <label for="from-currency">Из</label>
+                    <select id="from-currency" class="currency-select">
+                      <option value="default">from</option>
+                      <option value="btc">BTC</option>
+                      <option value="eth">ETH</option>
+                    </select>
+
+                    <label for="to-currency">в</label>
+                    <select id="to-currency" class="currency-select">
+                      <option value="default">to</option>
+                      <option value="btc">BTC</option>
+                      <option value="eth">ETH</option>
+                    </select>
+                  </div>
+
+                  <label for="amount-to-exchange">
+                    Сумма
+                    <input class="sum-to-exchange" type="number" step="any">
+                  </label>
+                </div>
+
+                <input class="submit" type="submit" value="Обменять">
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </template>
+
+  <template id="history-page">
+    <main class="main">
+      <div class="history-page page">
+        <div class="row">
+          <h1 class="title">История баланса</h1>
+          <a href="#" class="go-back-link">
+            <span class="arr-left-symbol">←</span>
+            Вернуться назад
+          </a>
+        </div>
+
+        <div class="row">
+          <h2 class="account-id">№ 12455242373623463</h2>
+
+          <div class="balance-wrapper row">
+            <h3 class="block-title">Баланс</h3>
+            <p class="balance">31 235 ₽</p>
+          </div>
+        </div>
+
+        <div class="white-card">
+          <h3 class="block-title">Динамика баланса</h3>
+
+          <div class="bar-chart-balance-wrapper">
+
+            <div class="bar-chart-balance-y-axis-wrapper">
+              <div class="bar-chart-balance-xl">
+                <div class="bar b1"></div>
+                <div class="bar b2"></div>
+                <div class="bar b3"></div>
+                <div class="bar b4"></div>
+                <div class="bar b5"></div>
+                <div class="bar b6"></div>
+                <div class="bar b7"></div>
+                <div class="bar b8"></div>
+                <div class="bar b9"></div>
+                <div class="bar b10"></div>
+                <div class="bar b11"></div>
+                <div class="bar b12"></div>
+              </div>
+
+              <p class="bar-chart-y-axis">
+                <span class="y-max">3000</span>
+                <span class="y-start">0</span>
+              </p>
+            </div>
+
+            <div class="bar-chart-x-axis-xl">
+              <span class="x-mark">мар</span>
+              <span class="x-mark">апр</span>
+              <span class="x-mark">май</span>
+              <span class="x-mark">июн</span>
+              <span class="x-mark">июл</span>
+              <span class="x-mark">авг</span>
+              <span class="x-mark">мар</span>
+              <span class="x-mark">апр</span>
+              <span class="x-mark">май</span>
+              <span class="x-mark">июн</span>
+              <span class="x-mark">июл</span>
+              <span class="x-mark">авг</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="white-card">
+          <h3 class="block-title">Динамика баланса</h3>
+
+          <div class="bar-chart-balance-wrapper">
+
+            <div class="bar-chart-balance-y-axis-wrapper">
+              <div class="bar-chart-balance-xl diff">
+                <div class="bar b1"></div>
+                <div class="bar b2">
+                  <div class="spending"></div>
+                </div>
+                <div class="bar b3"></div>
+                <div class="bar b4"></div>
+                <div class="bar b5"></div>
+                <div class="bar b6"></div>
+                <div class="bar b7"></div>
+                <div class="bar b8"></div>
+                <div class="bar b9"></div>
+                <div class="bar b10"></div>
+                <div class="bar b11"></div>
+                <div class="bar b12"></div>
+              </div>
+
+              <p class="bar-chart-y-axis">
+                <span class="y-max">3000</span>
+                <span class="y-start">0</span>
+              </p>
+            </div>
+
+            <div class="bar-chart-x-axis">
+              <span class="x-mark">мар</span>
+              <span class="x-mark">апр</span>
+              <span class="x-mark">май</span>
+              <span class="x-mark">июн</span>
+              <span class="x-mark">июл</span>
+              <span class="x-mark">авг</span>
+              <span class="x-mark">мар</span>
+              <span class="x-mark">апр</span>
+              <span class="x-mark">май</span>
+              <span class="x-mark">июн</span>
+              <span class="x-mark">июл</span>
+              <span class="x-mark">авг</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="gray-card history">
+          <h3 class="block-title">История переводов</h3>
+          <table class="table">
+            <thead class="table-head">
+              <tr class="head-row">
+                <th class="head-cell">Счёт отправителя</th>
+                <th class="head-cell">Счёт получателя</th>
+                <th class="head-cell">Сумма</th>
+                <th class="head-cell">Дата</th>
+              </tr>
+            </thead>
+            <tbody class="table-body">
+              <tr class="table-row history-record">
+                <td class="cell sender">123545123541</td>
+                <td class="cell receiver">123545123541</td>
+                <td class="cell amount-money">- 1 234 ₽</td>
+                <td class="cell amount-money">31.12.2021</td>
+              </tr>
+              <tr class="table-row history-record">
+                <td class="cell sender">123545123541</td>
+                <td class="cell receiver">123545123541</td>
+                <td class="cell amount-money">+ 1 234 ₽</td>
+                <td class="cell amount-money">31.12.2021</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </template>
 </body>
 
 </html>

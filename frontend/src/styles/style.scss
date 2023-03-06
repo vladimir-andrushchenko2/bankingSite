@@ -396,8 +396,13 @@ label[for='password-input'] {
   }
 }
 
-.bar-chart-x-axis {
+.bar-chart-x-axis-xl {
   @include chart-width-and-padding-xl;
+  display: flex;
+}
+
+.bar-chart-x-axis {
+  @include chart-width-and-padding;
   display: flex;
 }
 
@@ -416,6 +421,8 @@ label[for='password-input'] {
 .history {
   margin-top: 50px;
   padding: 25px 45px 65px;
+
+  cursor: pointer;
 
   position: relative;
 
