@@ -145,8 +145,9 @@ label[for='password-input'] {
 // accounts page
 
 .page {
-  margin: 50px;
-  max-width: 1440px;
+  margin: 50px auto;
+  padding: 0 50px;
+  max-width: 1540px;
 }
 
 .sort-select {
@@ -496,6 +497,8 @@ label[for='password-input'] {
   }
 }
 .currencies-grid {
+  margin-top: 25px;
+
   display: grid;
   grid-template-columns: 1fr 1fr;
 
