@@ -41,3 +41,8 @@ img {
 button > * {
   pointer-events: none;
 }
+
+input[type='submit'],
+select {
+  cursor: pointer;
+}

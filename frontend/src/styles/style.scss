@@ -96,6 +96,12 @@
   line-height: 40px;
 }
 
+.block-title {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+}
+
 .input-label {
   color: #182233;
   font-weight: 500;
@@ -477,4 +483,125 @@ label[for='password-input'] {
   .white-card {
     margin-top: 50px;
   }
+}
+
+// currencies
+.exchange-page {
+  .white-card {
+    padding: 50px;
+  }
+
+  .gray-card {
+    padding: 50px;
+  }
+}
+.currencies-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 44px 50px;
+}
+
+.changes-in-currencies {
+  grid-row: span 2;
+}
+
+.item-row {
+  margin-top: 25px;
+
+  display: grid;
+  grid-template-columns: max-content 1fr max-content max-content;
+}
+
+.currency-name {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 23px;
+}
+
+.dots {
+  background-image: url(../img/ui/dots.svg);
+  background-repeat: repeat-x;
+  background-position: bottom 5px center;
+  background-clip: content-box;
+  padding: 0px 10px;
+}
+
+.price {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 23px;
+  letter-spacing: 0.1em;
+}
+
+.triangle {
+  width: 35px;
+  background-repeat: no-repeat;
+  background-position: right center;
+
+  &.red {
+    background-image: url(../img/ui/red-triangle.svg);
+  }
+
+  &.green {
+    background-image: url(../img/ui/green-triangle.svg);
+  }
+}
+.exchange-currencies-form {
+  margin-top: 25px;
+
+  label {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .row {
+    align-items: center;
+  }
+
+  .submit {
+    align-self: stretch;
+
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+
+    color: #fff;
+
+    padding: 13px;
+
+    background: #116acc;
+    border-radius: 7px;
+    border: 0;
+  }
+}
+
+.currency-select {
+  min-width: 134px;
+
+  padding: 10px 15px;
+
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+
+  border: 1px solid #9ca3af;
+  border-radius: 7px;
+}
+
+.sum-to-exchange {
+  margin-top: 35px;
+
+  min-width: 300px;
+  padding: 10px 16px;
+
+  margin-left: 8px;
+
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+
+  border: 1px solid #9ca3af;
+  border-radius: 7px;
 }
