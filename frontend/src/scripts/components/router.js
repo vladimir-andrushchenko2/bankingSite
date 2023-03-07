@@ -14,10 +14,7 @@ export default class Router {
 
     const page = this.pages[pageName];
 
-    this.root.append(page.makeElement(payload));
-
-    // pass this as argument so callbacks inside listeners can change pages without circular dependancy
-    page.setEventListeners(this, payload);
+    this.root.append(page(this, payload));
 
     window.scroll(0, 0);
   }

@@ -1,30 +1,28 @@
-import Page from '../components/page';
 import getPageTemplate from '../utils/getPageTemplate';
 import api from '../components/api';
 
-export default new Page({
-  makeElement() {
-    return getPageTemplate('login-page');
-  },
-  setEventListeners(router) {
-    const form = document.querySelector('.login-form');
+export default function loginPage(router) {
+  const page = getPageTemplate('login-page');
 
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
+  const form = page.querySelector('.login-form');
 
-      const login = document.getElementById('login-input').value;
-      const password = document.getElementById('password-input').value;
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-      api
-        .postLogin({ login, password })
-        .then((res) => {
-          if (res.ok) {
-            router.loadPage('accounts');
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    });
-  },
-});
+    const login = document.getElementById('login-input').value;
+    const password = document.getElementById('password-input').value;
+
+    api
+      .postLogin({ login, password })
+      .then((res) => {
+        if (res.ok) {
+          router.loadPage('accounts');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+
+  return page;
+}
