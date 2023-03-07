@@ -9,14 +9,15 @@ export default class Router {
     this.root.innerHTML = '';
   }
 
-  loadPage(pageName) {
+  loadPage(pageName, payload) {
     this.clearPage();
 
     const page = this.pages[pageName];
 
-    this.root.append(page.makeElement());
+    this.root.append(page.makeElement(payload));
 
-    page.setEventListeners();
+    // pass this as argument so callbacks inside listeners can change pages without circular dependancy
+    page.setEventListeners(this, payload);
 
     window.scroll(0, 0);
   }
@@ -57,6 +58,7 @@ export default class Router {
         return;
       }
 
+      // error handling logic
       const mathedPages = matchedClasses
         .map(
           (className) => `${className} -> ${this.elementsToPages[className]}`

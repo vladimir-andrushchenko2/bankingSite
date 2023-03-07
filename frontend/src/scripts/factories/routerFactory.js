@@ -19,8 +19,6 @@ const router = new Router({
   },
 });
 
-router.loadPage('accounts');
-
 router
   .setClickOnElementWithClassToLeadTo({
     className: 'map-link',
@@ -41,18 +39,6 @@ router
   .setClickOnElementWithClassToLeadTo({
     className: 'logo',
     pageName: 'accounts',
-  })
-  .setClickOnElementWithClassToLeadTo({
-    className: 'account-open-link',
-    pageName: 'account',
-  })
-  .setClickOnElementWithClassToLeadTo({
-    className: 'account-open-link',
-    pageName: 'account',
-  })
-  .setClickOnElementWithClassToLeadTo({
-    className: 'history',
-    pageName: 'history',
   });
 
 router.setEventListeners();
