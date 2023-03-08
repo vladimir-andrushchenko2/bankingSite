@@ -3,31 +3,84 @@ import getTemplate from '../utils/getTemplate';
 import api from '../components/api';
 import parseDate from '../utils/parseDate';
 
-export default function allAccountsPage(router) {
+function makeCard({ account, balance, transactions }, router) {
+  const card = getTemplate('account-card-template', '.account-card');
+
+  card.querySelector('.account-id').textContent = account;
+  card.querySelector('.account-balance').textContent = `${balance} ₽`;
+
+  if (transactions[0]?.date) {
+    const { date } = transactions[0];
+    card.querySelector('.account-last-use-date').textContent = parseDate(date);
+  }
+
+  card
+    .querySelector('.account-open-link')
+    .addEventListener('click', (event) => {
+      event.preventDefault();
+      router.loadPage('account', account);
+    });
+
+  return card;
+}
+
+function getTime(account) {
+  const jsonDate = account.transactions[0]?.date;
+
+  if (jsonDate) {
+    return new Date(jsonDate).getTime();
+  }
+
+  return Number.POSITIVE_INFINITY;
+}
+
+export default function allAccountsPage(
+  router,
+  { cachedAccounts, sortedOption } = {}
+) {
   const page = getPageTemplate('accounts-page');
   const accountsList = page.querySelector('.accounts-list');
+  const sortSelect = page.querySelector('.sort-select');
 
-  api.getAccounts().then((accounts) => {
-    accounts.forEach(({ account, balance, transactions }) => {
-      const card = getTemplate('account-card-template', '.account-card');
+  if (sortedOption) {
+    sortSelect.querySelector(`option[value='${sortedOption}'`).selected =
+      'selected';
+  }
 
-      card.querySelector('.account-id').textContent = account;
-      card.querySelector('.account-balance').textContent = `${balance} ₽`;
+  if (!cachedAccounts) {
+    api.getAccounts().then((accounts) => {
+      router.loadPage('accounts', { cachedAccounts: accounts });
+    });
 
-      if (transactions[0]?.date) {
-        const { date } = transactions[0];
-        card.querySelector('.account-last-use-date').textContent =
-          parseDate(date);
-      }
+    // return empty page while accounts are loading
+    return page;
+  }
 
-      card
-        .querySelector('.account-open-link')
-        .addEventListener('click', (event) => {
-          event.preventDefault();
-          router.loadPage('account', account);
-        });
+  cachedAccounts.forEach(({ account, balance, transactions }) => {
+    accountsList.append(makeCard({ account, balance, transactions }, router));
+  });
 
-      accountsList.append(card);
+  sortSelect.addEventListener('change', ({ target: { value } }) => {
+    switch (value) {
+      case 'id':
+        cachedAccounts.sort((left, right) => left.account - right.account);
+        break;
+
+      case 'money':
+        cachedAccounts.sort((left, right) => right.balance - left.balance);
+        break;
+
+      case 'time-used':
+        cachedAccounts.sort((left, right) => getTime(left) - getTime(right));
+        break;
+
+      default:
+        break;
+    }
+
+    router.loadPage('accounts', {
+      cachedAccounts,
+      sortedOption: value,
     });
   });
 
