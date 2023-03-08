@@ -10,6 +10,11 @@ export default function singleAccountPage(router, accountId) {
   const smallBarChart = page.querySelector('.small-bar-chart');
   const historyTableBody = page.querySelector('.table-body');
 
+  page.querySelector('.go-back-link').addEventListener('click', (event) => {
+    event.preventDefault();
+    router.loadPage('accounts');
+  });
+
   api
     .getAccount({ id: accountId })
     .then(({ account, balance, transactions }) => {

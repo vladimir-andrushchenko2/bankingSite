@@ -12,6 +12,11 @@ export default function historyPage(
   const idDisplay = page.querySelector('.account-id');
   const balanceDisplay = page.querySelector('.balance');
 
+  page.querySelector('.go-back-link').addEventListener('click', (event) => {
+    event.preventDefault();
+    router.loadPage('account', accountId);
+  });
+
   idDisplay.textContent = accountId;
   balanceDisplay.textContent = `${balance} ₽`;
 
