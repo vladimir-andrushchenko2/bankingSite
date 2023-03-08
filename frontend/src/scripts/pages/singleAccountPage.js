@@ -19,11 +19,15 @@ export default function singleAccountPage(router, accountId) {
       fillBarChart(smallBarChart, transactions, accountId);
 
       fillHistoryTable(historyTableBody, transactions, accountId);
-    });
 
-  page.querySelector('.history').addEventListener('click', () => {
-    router.loadPage('history', {});
-  });
+      page.querySelector('.history').addEventListener('click', () => {
+        router.loadPage('history', {
+          transactions,
+          accountId,
+          balance,
+        });
+      });
+    });
 
   return page;
 }

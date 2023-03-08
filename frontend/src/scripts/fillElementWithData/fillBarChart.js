@@ -10,7 +10,10 @@ function isIncomingTransaction({ transaction, accountId }) {
   return transaction.to === accountId;
 }
 
-function parseTransactionsData({ transactions, accountId }) {
+function sumOfIncomeAndSpendingInArrFromClosesMonths({
+  transactions,
+  accountId,
+}) {
   const MONTHS_OF_DATA = 12;
 
   const currentDate = new Date();
@@ -36,21 +39,25 @@ function parseTransactionsData({ transactions, accountId }) {
 
 export default function fillBarChart(barChart, transactions, accountId) {
   const bars = Array.from(barChart.querySelectorAll('.bar')).reverse();
+  const spendingBars = Array.from(
+    barChart.querySelectorAll('.spending')
+  ).reverse();
   const yMax = barChart.querySelector('.y-max');
   const yMin = barChart.querySelector('.y-start');
   const xMarks = Array.from(barChart.querySelectorAll('.x-mark'));
 
-  const transactionsAsTotalOfIncomeAndSpendingInPastTwelveMonths =
-    parseTransactionsData({ transactions, accountId });
+  const incomesAndSpendings = sumOfIncomeAndSpendingInArrFromClosesMonths({
+    transactions,
+    accountId,
+  });
 
-  const totalTransactions =
-    transactionsAsTotalOfIncomeAndSpendingInPastTwelveMonths.map(
-      ({ income, spending }) => income + spending
-    );
+  const totalTransactions = incomesAndSpendings.map(
+    ({ income, spending }) => income + spending
+  );
 
   const [minTotalTransaction, maxTotalTransaction] = [
-    Math.floor(Math.min(...totalTransactions)),
-    Math.floor(Math.max(...totalTransactions)),
+    Math.round(Math.min(...totalTransactions)),
+    Math.round(Math.max(...totalTransactions)),
   ];
 
   const percentHeights = totalTransactions.map((value) =>
@@ -71,4 +78,20 @@ export default function fillBarChart(barChart, transactions, accountId) {
     const temp = months.at(currMonthsIndex - index).slice(0, 3);
     xMark.textContent = temp;
   });
+
+  if (spendingBars.length > 0) {
+    const spendingPercentHeights = incomesAndSpendings
+      .map(({ spending }) => spending)
+      .map((value) =>
+        value > 0
+          ? Math.round(
+            (maxTotalTransaction / (value - minTotalTransaction)) * 100
+          )
+          : 0
+      );
+
+    spendingBars.forEach((bar, index) => {
+      bar.style.height = `${spendingPercentHeights[index]}%`;
+    });
+  }
 }
