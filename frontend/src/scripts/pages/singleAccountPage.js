@@ -1,94 +1,7 @@
 import api from '../components/api';
 import getPageTemplate from '../utils/getPageTemplate';
-import parseDate from '../utils/parseDate';
-
-function diffInMonths(date1, date2) {
-  const months = (date2.getFullYear() - date1.getFullYear()) * 12;
-  const diff = date2.getMonth() - date1.getMonth();
-  return months + diff;
-}
-
-function isIncomingTransaction({ transaction, accountId }) {
-  return transaction.to === accountId;
-}
-
-function parseTransactionsData({ transactions, accountId }) {
-  const MONTHS_OF_DATA = 12;
-
-  const currentDate = new Date();
-
-  const output = Array(12)
-    .fill({})
-    .map(() => ({ income: 0, spending: 0 }));
-
-  transactions.forEach((transaction) => {
-    const diff = diffInMonths(new Date(transaction.date), currentDate);
-
-    if (diff < MONTHS_OF_DATA) {
-      if (isIncomingTransaction({ transaction, accountId })) {
-        output[diff].income += transaction.amount;
-      } else {
-        output[diff].spending += transaction.amount;
-      }
-    }
-  });
-
-  return output;
-}
-
-function fillGraph(
-  barChart,
-  transactionsAsTotalOfIncomeAndSpendingInPastTwelveMonths
-) {
-  const bars = Array.from(barChart.querySelectorAll('.bar')).reverse();
-  const yMax = barChart.querySelector('.y-max');
-  const yMin = barChart.querySelector('.y-start');
-
-  const totalTransactions =
-    transactionsAsTotalOfIncomeAndSpendingInPastTwelveMonths.map(
-      ({ income, spending }) => income + spending
-    );
-
-  const [minTotalTransaction, maxTotalTransaction] = [
-    Math.floor(Math.min(...totalTransactions)),
-    Math.floor(Math.max(...totalTransactions)),
-  ];
-
-  const percentHeights = totalTransactions.map((value) =>
-    value > 0
-      ? Math.floor((maxTotalTransaction / (value - minTotalTransaction)) * 100)
-      : 0
-  );
-
-  bars.forEach((bar, index) => {
-    bar.style.height = `${percentHeights[index]}%`;
-  });
-
-  yMax.textContent = maxTotalTransaction;
-  yMin.textContent = minTotalTransaction;
-}
-
-function getHistoryTableRowHTML({ from, to, amount, date }, accountId) {
-  const isIncome = to === accountId;
-  return `<tr class="table-row history-record">
-  <td class="cell sender">${from}</td>
-  <td class="cell receiver">${to}</td>
-  <td class="cell amount-money"
-   style="color: ${isIncome ? '#76CA66' : '#FD4E5D'}; ">
-  ${isIncome ? '+' : '-'}
-     ${amount}
-      ₽</td >
-  <td class="cell date">${parseDate(date)}</td>
-</tr > `;
-}
-
-function fillHistoryTable(tableBody, transactions, accountId) {
-  const lastTenTransactions = transactions.slice(-10);
-
-  tableBody.innerHTML = lastTenTransactions
-    .map((transaction) => getHistoryTableRowHTML(transaction, accountId))
-    .join('');
-}
+import fillBarChart from '../fillElementWithData/fillBarChart';
+import fillHistoryTable from '../fillElementWithData/fillHistoryTable';
 
 export default function singleAccountPage(router, accountId) {
   const page = getPageTemplate('account-page');
@@ -103,17 +16,13 @@ export default function singleAccountPage(router, accountId) {
       idDisplay.textContent = account;
       balanceDisplay.textContent = `${balance} ₽`;
 
-      fillGraph(
-        smallBarChart,
-        // last 12 months
-        parseTransactionsData({
-          transactions,
-          accountId,
-        })
-      );
+      fillBarChart(smallBarChart, transactions, accountId);
 
       fillHistoryTable(historyTableBody, transactions, accountId);
     });
 
+  page.querySelector('.history').addEventListener('click', () => {
+    router.loadPage('history', {});
+  });
   return page;
 }
