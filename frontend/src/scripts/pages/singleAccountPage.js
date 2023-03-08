@@ -1,5 +1,6 @@
 import api from '../components/api';
 import getPageTemplate from '../utils/getPageTemplate';
+import parseDate from '../utils/parseDate';
 
 function diffInMonths(date1, date2) {
   const months = (date2.getFullYear() - date1.getFullYear()) * 12;
@@ -35,14 +36,18 @@ function parseTransactionsData({ transactions, accountId }) {
   return output;
 }
 
-function fillGraph(barChart, transactions) {
+function fillGraph(
+  barChart,
+  transactionsAsTotalOfIncomeAndSpendingInPastTwelveMonths
+) {
   const bars = Array.from(barChart.querySelectorAll('.bar')).reverse();
   const yMax = barChart.querySelector('.y-max');
   const yMin = barChart.querySelector('.y-start');
 
-  const totalTransactions = transactions.map(
-    ({ income, spending }) => income + spending
-  );
+  const totalTransactions =
+    transactionsAsTotalOfIncomeAndSpendingInPastTwelveMonths.map(
+      ({ income, spending }) => income + spending
+    );
 
   const [minTotalTransaction, maxTotalTransaction] = [
     Math.floor(Math.min(...totalTransactions)),
@@ -63,11 +68,34 @@ function fillGraph(barChart, transactions) {
   yMin.textContent = minTotalTransaction;
 }
 
+function getHistoryTableRowHTML({ from, to, amount, date }, accountId) {
+  const isIncome = to === accountId;
+  return `<tr class="table-row history-record">
+  <td class="cell sender">${from}</td>
+  <td class="cell receiver">${to}</td>
+  <td class="cell amount-money"
+   style="color: ${isIncome ? '#76CA66' : '#FD4E5D'}; ">
+  ${isIncome ? '+' : '-'}
+     ${amount}
+      ₽</td >
+  <td class="cell date">${parseDate(date)}</td>
+</tr > `;
+}
+
+function fillHistoryTable(tableBody, transactions, accountId) {
+  const lastTenTransactions = transactions.slice(-10);
+
+  tableBody.innerHTML = lastTenTransactions
+    .map((transaction) => getHistoryTableRowHTML(transaction, accountId))
+    .join('');
+}
+
 export default function singleAccountPage(router, accountId) {
   const page = getPageTemplate('account-page');
   const idDisplay = page.querySelector('.account-id');
   const balanceDisplay = page.querySelector('.balance');
   const smallBarChart = page.querySelector('.small-bar-chart');
+  const historyTableBody = page.querySelector('.table-body');
 
   api
     .getAccount({ id: accountId })
@@ -75,17 +103,16 @@ export default function singleAccountPage(router, accountId) {
       idDisplay.textContent = account;
       balanceDisplay.textContent = `${balance} ₽`;
 
-      // last 12 months
-      const recentTransactionsWithIncomeAndSpendingSeparated =
+      fillGraph(
+        smallBarChart,
+        // last 12 months
         parseTransactionsData({
           transactions,
           accountId,
-        });
-
-      fillGraph(
-        smallBarChart,
-        recentTransactionsWithIncomeAndSpendingSeparated
+        })
       );
+
+      fillHistoryTable(historyTableBody, transactions, accountId);
     });
 
   return page;
