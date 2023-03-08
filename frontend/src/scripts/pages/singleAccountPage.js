@@ -37,14 +37,16 @@ function parseTransactionsData({ transactions, accountId }) {
 
 function fillGraph(barChart, transactions) {
   const bars = Array.from(barChart.querySelectorAll('.bar')).reverse();
+  const yMax = barChart.querySelector('.y-max');
+  const yMin = barChart.querySelector('.y-start');
 
   const totalTransactions = transactions.map(
     ({ income, spending }) => income + spending
   );
 
   const [minTotalTransaction, maxTotalTransaction] = [
-    Math.min(...totalTransactions),
-    Math.max(...totalTransactions),
+    Math.floor(Math.min(...totalTransactions)),
+    Math.floor(Math.max(...totalTransactions)),
   ];
 
   const percentHeights = totalTransactions.map((value) =>
@@ -56,6 +58,9 @@ function fillGraph(barChart, transactions) {
   bars.forEach((bar, index) => {
     bar.style.height = `${percentHeights[index]}%`;
   });
+
+  yMax.textContent = maxTotalTransaction;
+  yMin.textContent = minTotalTransaction;
 }
 
 export default function singleAccountPage(router, accountId) {
