@@ -1,13 +1,19 @@
 import getPageTemplate from '../utils/getPageTemplate';
 import fillBarChart from '../fillElementWithData/fillBarChart';
 import fillHistoryTable from '../fillElementWithData/fillHistoryTable';
+import fillActivityBarChart from '../fillElementWithData/fillActivityBarChart';
 
 export default function historyPage(
   router,
   { transactions, accountId, balance }
 ) {
   const page = getPageTemplate('history-page');
-  const barCharts = page.querySelectorAll('.bar-chart-balance-wrapper');
+  const barChart = page.querySelector(
+    '.bar-chart-balance-wrapper.balance-dynamic'
+  );
+  const actitityBarChart = page.querySelector(
+    '.bar-chart-balance-wrapper.diff'
+  );
   const historyTableBody = page.querySelector('.table-body');
   const idDisplay = page.querySelector('.account-id');
   const balanceDisplay = page.querySelector('.balance');
@@ -20,9 +26,8 @@ export default function historyPage(
   idDisplay.textContent = accountId;
   balanceDisplay.textContent = `${balance} ₽`;
 
-  barCharts.forEach((barChart) => {
-    fillBarChart(barChart, transactions, accountId);
-  });
+  fillBarChart(barChart, transactions, accountId);
+  fillActivityBarChart(actitityBarChart, transactions, accountId);
 
   fillHistoryTable(historyTableBody, transactions, accountId);
 
