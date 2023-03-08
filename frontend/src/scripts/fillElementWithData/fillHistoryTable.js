@@ -15,7 +15,7 @@ function getHistoryTableRowHTML({ from, to, amount, date }, accountId) {
 }
 
 export default function fillHistoryTable(tableBody, transactions, accountId) {
-  const lastTenTransactions = transactions.slice(-10);
+  const lastTenTransactions = transactions.slice(-10).reverse();
 
   tableBody.innerHTML = lastTenTransactions
     .map((transaction) => getHistoryTableRowHTML(transaction, accountId))

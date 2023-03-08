@@ -72,6 +72,26 @@ class Api {
 
     return this.makeRequest({ path, method: 'POST' });
   }
+
+  getCurrencies() {
+    const path = '/currencies';
+
+    return this.makeRequest({ path });
+  }
+
+  postTransferFunds({ from, to, amount }) {
+    const path = '/transfer-funds';
+
+    return this.makeRequest({
+      path,
+      method: 'POST',
+      body: {
+        from,
+        to,
+        amount,
+      },
+    });
+  }
 }
 
 export default new Api(BASE_URL, {
