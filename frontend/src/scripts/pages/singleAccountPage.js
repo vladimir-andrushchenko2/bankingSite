@@ -24,5 +24,6 @@ export default function singleAccountPage(router, accountId) {
   page.querySelector('.history').addEventListener('click', () => {
     router.loadPage('history', {});
   });
+
   return page;
 }

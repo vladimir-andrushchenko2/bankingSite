@@ -31,5 +31,11 @@ export default function allAccountsPage(router) {
     });
   });
 
+  page.querySelector('.add-account-btn').addEventListener('click', () => {
+    api.postCreateAccount().then(() => {
+      router.loadPage('accounts');
+    });
+  });
+
   return page;
 }
