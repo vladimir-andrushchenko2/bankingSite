@@ -10,15 +10,67 @@ function getCurrencyElement({ code, amount }) {
   `;
 }
 
+function getCurrencyDynamicElement({ from, to, rate, change }) {
+  const element = document
+    .getElementById('exchange-rate-change-item')
+    .content.querySelector('.item-row')
+    .cloneNode(true);
+
+  element.querySelector('.currency-name').textContent = `${from}/${to}`;
+  element.querySelector('.price').textContent = rate;
+
+  const changeIndicatorClassName = change > 0 ? 'green' : 'red';
+
+  element.querySelector('.triangle').classList.add(changeIndicatorClassName);
+
+  return element;
+}
+
+class FixedSizeArrayOfElements {
+  constructor(container) {
+    this.elements = [];
+    this.container = container;
+  }
+
+  add(element) {
+    if (this.elements.length > 15) {
+      const removedElement = this.elements.pop();
+      removedElement.remove();
+    }
+
+    this.elements.unshift(element);
+    this.container.prepend(element);
+  }
+}
+
+function getCurrencyFeed() {
+  const path = 'ws://localhost:3000/currency-feed';
+
+  return new WebSocket(path);
+}
+
 export default function exchangePage() {
   const page = getPageTemplate('exchange-page');
   const userCurrenciesList = page.querySelector('.users-currencies-list');
+  const exchangeRatesList = page.querySelector('.currency-changes-list');
+
+  const fixedArray = new FixedSizeArrayOfElements(exchangeRatesList);
 
   api.getCurrencies().then((data) => {
     userCurrenciesList.innerHTML = Object.entries(data)
       .map(([code, { amount }]) => getCurrencyElement({ code, amount }))
       .join('');
   });
+
+  const ws = getCurrencyFeed();
+
+  ws.onmessage = (event) => {
+    const { from, to, rate, change } = JSON.parse(event.data);
+
+    const item = getCurrencyDynamicElement({ from, to, rate, change });
+
+    fixedArray.add(item);
+  };
 
   return page;
 }
