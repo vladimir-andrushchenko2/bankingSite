@@ -17,6 +17,7 @@ export default function loginPage(router) {
       .then((res) => {
         if (res.ok) {
           router.loadPage('accounts');
+          document.querySelector('.nav').classList.add('nav_opened');
         }
       })
       .catch((err) => {

@@ -10,6 +10,14 @@
   align-items: baseline;
 }
 
+.nav {
+  display: none;
+}
+
+.nav_opened {
+  display: block;
+}
+
 // login page
 
 .header {
