@@ -110,6 +110,12 @@ class Api {
       body: { from, to, amount },
     });
   }
+
+  getBankLocations() {
+    const path = '/banks';
+
+    return this.makeRequest({ path });
+  }
 }
 
 export default new Api(BASE_URL, {
