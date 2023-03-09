@@ -92,6 +92,14 @@ class Api {
       },
     });
   }
+
+  getCurrenciesNames() {
+    const path = '/all-currencies';
+
+    return this.makeRequest({
+      path,
+    });
+  }
 }
 
 export default new Api(BASE_URL, {

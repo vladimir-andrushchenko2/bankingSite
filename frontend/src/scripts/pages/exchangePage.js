@@ -49,10 +49,18 @@ function getCurrencyFeed() {
   return new WebSocket(path);
 }
 
+function insertOptionsToSelect(select, options) {
+  select.innerHTML = options
+    .map((value) => `<option value="${value}">${value}</option>`)
+    .join('');
+}
+
 export default function exchangePage() {
   const page = getPageTemplate('exchange-page');
   const userCurrenciesList = page.querySelector('.users-currencies-list');
   const exchangeRatesList = page.querySelector('.currency-changes-list');
+
+  const currencySelects = Array.from(page.querySelectorAll('.currency-select'));
 
   const fixedArray = new FixedSizeArrayOfElements(exchangeRatesList);
 
@@ -71,6 +79,12 @@ export default function exchangePage() {
 
     fixedArray.add(item);
   };
+
+  api.getCurrenciesNames().then((data) => {
+    currencySelects.forEach((select) => {
+      insertOptionsToSelect(select, data);
+    });
+  });
 
   return page;
 }
