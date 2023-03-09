@@ -55,12 +55,15 @@ function insertOptionsToSelect(select, options) {
     .join('');
 }
 
-export default function exchangePage() {
+export default function exchangePage(router) {
   const page = getPageTemplate('exchange-page');
   const userCurrenciesList = page.querySelector('.users-currencies-list');
   const exchangeRatesList = page.querySelector('.currency-changes-list');
-
   const currencySelects = Array.from(page.querySelectorAll('.currency-select'));
+  const exchangeForm = page.querySelector('.exchange-currencies-form');
+  const exchangeFromInput = page.querySelector('#from-currency');
+  const exchangeToInput = page.querySelector('#to-currency');
+  const exchangeAmountInput = page.querySelector('#amount-to-exchange');
 
   const fixedArray = new FixedSizeArrayOfElements(exchangeRatesList);
 
@@ -83,6 +86,20 @@ export default function exchangePage() {
   api.getCurrenciesNames().then((data) => {
     currencySelects.forEach((select) => {
       insertOptionsToSelect(select, data);
+    });
+  });
+
+  exchangeForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const [from, to, amount] = [
+      exchangeFromInput.value,
+      exchangeToInput.value,
+      exchangeAmountInput.value,
+    ];
+
+    api.postCurrencyBuy({ from, to, amount }).then(() => {
+      router.loadPage('exchange');
     });
   });
 

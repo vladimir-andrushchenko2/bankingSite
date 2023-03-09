@@ -235,23 +235,17 @@
                 <div class="form-inputs">
                   <div class="row">
                     <label for="from-currency">Из</label>
-                    <select id="from-currency" class="currency-select">
-                      <option value="default">from</option>
-                      <option value="btc">BTC</option>
-                      <option value="eth">ETH</option>
+                    <select id="from-currency" class="currency-select" required>
                     </select>
 
                     <label for="to-currency">в</label>
-                    <select id="to-currency" class="currency-select">
-                      <option value="default">to</option>
-                      <option value="btc">BTC</option>
-                      <option value="eth">ETH</option>
+                    <select id="to-currency" class="currency-select" required>
                     </select>
                   </div>
 
                   <label for="amount-to-exchange">
                     Сумма
-                    <input class="sum-to-exchange" type="number" step="any">
+                    <input id="amount-to-exchange" class="sum-to-exchange" type="number" step="any" required>
                   </label>
                 </div>
 

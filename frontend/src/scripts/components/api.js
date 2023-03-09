@@ -100,6 +100,16 @@ class Api {
       path,
     });
   }
+
+  postCurrencyBuy({ from, to, amount }) {
+    const path = '/currency-buy';
+
+    return this.makeRequest({
+      path,
+      method: 'POST',
+      body: { from, to, amount },
+    });
+  }
 }
 
 export default new Api(BASE_URL, {
