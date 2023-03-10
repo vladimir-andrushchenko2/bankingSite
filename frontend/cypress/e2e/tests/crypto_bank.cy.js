@@ -11,7 +11,7 @@
 // please read our getting started guide:
 // https://on.cypress.io/introduction-to-cypress
 
-describe('example to-do app', () => {
+describe('crypto app', () => {
   beforeEach(() => {
     cy.visit('http://localhost:8080/');
   });
