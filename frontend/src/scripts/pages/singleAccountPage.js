@@ -23,15 +23,22 @@ export default function singleAccountPage(router, accountId) {
       '#receiver-account-number'
     );
 
+    const errorDisplay = makeTransferForm.querySelector('.error-display');
+
     const amount = makeTransferForm.querySelector('#transfer-money-amount');
 
-    api.postTransferFunds({
-      from: accountId,
-      to: receiverInput.value,
-      amount: amount.value,
-    });
-
-    router.loadPage('account', accountId);
+    api
+      .postTransferFunds({
+        from: accountId,
+        to: receiverInput.value,
+        amount: amount.value,
+      })
+      .then(() => {
+        router.loadPage('account', accountId);
+      })
+      .catch((err) => {
+        errorDisplay.textContent = err;
+      });
   });
 
   api
