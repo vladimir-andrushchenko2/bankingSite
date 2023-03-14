@@ -11,6 +11,7 @@ export default function loginPage(router) {
 
     const login = document.getElementById('login-input').value;
     const password = document.getElementById('password-input').value;
+    const errorDisplay = form.querySelector('.error-display');
 
     api
       .postLogin({ login, password })
@@ -21,7 +22,7 @@ export default function loginPage(router) {
         }
       })
       .catch((err) => {
-        console.log(err);
+        errorDisplay.textContent = err;
       });
   });
 

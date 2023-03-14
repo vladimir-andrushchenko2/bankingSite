@@ -5,7 +5,10 @@ import appRouter from './factories/routerFactory';
 import api from './components/api';
 
 if (localStorage.getItem('Authorization')) {
+  console.log(window.location.pathname);
+
   appRouter.loadPage('accounts');
+
   document.querySelector('.nav').classList.add('nav_opened');
 } else {
   appRouter.loadPage('login');
@@ -17,3 +20,8 @@ document.querySelector('.exit-link').addEventListener('click', (event) => {
 
   document.querySelector('.nav').classList.remove('nav_opened');
 });
+
+// Todo
+// - add validation
+// - add navigation
+// - fix layout
