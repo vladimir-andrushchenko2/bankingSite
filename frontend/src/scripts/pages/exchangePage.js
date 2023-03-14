@@ -49,10 +49,17 @@ function getCurrencyFeed() {
   return new WebSocket(path);
 }
 
-function insertOptionsToSelect(select, options) {
-  select.innerHTML = options
-    .map((value) => `<option value="${value}">${value}</option>`)
-    .join('');
+function insertOptionsToSelect(select, options, hasDifferentFirstElement) {
+  const listOfOption = options.map(
+    (value) => `<option value="${value}">${value}</option>`
+  );
+
+  if (hasDifferentFirstElement) {
+    const fistElement = listOfOption.shift();
+    listOfOption.push(fistElement);
+  }
+
+  select.innerHTML = listOfOption.join('');
 }
 
 export default function exchangePage(router) {
@@ -84,8 +91,8 @@ export default function exchangePage(router) {
   };
 
   api.getCurrenciesNames().then((data) => {
-    currencySelects.forEach((select) => {
-      insertOptionsToSelect(select, data);
+    currencySelects.forEach((select, index) => {
+      insertOptionsToSelect(select, data, index === 1);
     });
   });
 
