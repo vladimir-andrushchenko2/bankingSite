@@ -4,6 +4,7 @@
 .row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .baseline {
@@ -16,6 +17,10 @@
 
 .nav_opened {
   display: block;
+}
+
+.mt50 {
+  margin-top: 50px;
 }
 
 // login page
@@ -193,11 +198,6 @@ label[for='password-input'] {
   flex-direction: column;
 
   padding: 22px;
-
-  .row {
-    margin-top: 9px;
-    align-items: baseline;
-  }
 }
 
 .account-id {
@@ -239,13 +239,6 @@ label[for='password-input'] {
 }
 
 // account page
-
-.account-page {
-  .row {
-    margin-top: 50px;
-  }
-}
-
 .account-id {
   font-weight: 400;
   font-size: 34px;
@@ -300,6 +293,8 @@ label[for='password-input'] {
   gap: 25px 18px;
 
   justify-items: end;
+
+  margin-top: 10px;
 }
 
 .transfer-input {
@@ -570,10 +565,6 @@ label[for='password-input'] {
     font-weight: 500;
     font-size: 16px;
     line-height: 20px;
-  }
-
-  .row {
-    align-items: center;
   }
 
   .submit {
