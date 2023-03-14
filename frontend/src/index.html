@@ -65,7 +65,7 @@
             Пароль
             <input class="input" placeholder="Пароль" type="password" id="password-input" required>
           </label>
-          <span class="error-display"></span>
+          <div class="error-display"></div>
           <input class="input-submit" type="submit" value="Войти">
         </form>
       </div>
@@ -144,7 +144,7 @@
               <label class="input-label" for="transfer-money-amount">Сумма перевода</label>
               <input placeholder="Сумма" type="number" id="transfer-money-amount" class="transfer-input input">
 
-              <span class="error-display"></span>
+              <div class="error-display"></div>
 
               <input class="transfer-submit" type="submit" value="Отправить">
             </form>
@@ -233,7 +233,6 @@
             <form class="exchange-currencies-form">
 
               <div class="row">
-
                 <div class="form-inputs">
                   <div class="row">
                     <label for="from-currency">Из</label>
@@ -253,7 +252,10 @@
 
                 <input class="submit" type="submit" value="Обменять">
               </div>
+
+              <div class="error-display"></div>
             </form>
+
           </div>
         </div>
 

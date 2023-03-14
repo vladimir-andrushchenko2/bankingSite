@@ -71,6 +71,7 @@ export default function exchangePage(router) {
   const exchangeFromInput = page.querySelector('#from-currency');
   const exchangeToInput = page.querySelector('#to-currency');
   const exchangeAmountInput = page.querySelector('#amount-to-exchange');
+  const errorDisplay = page.querySelector('.error-display');
 
   const fixedArray = new FixedSizeArrayOfElements(exchangeRatesList);
 
@@ -105,9 +106,14 @@ export default function exchangePage(router) {
       exchangeAmountInput.value,
     ];
 
-    api.postCurrencyBuy({ from, to, amount }).then(() => {
-      router.loadPage('exchange');
-    });
+    api
+      .postCurrencyBuy({ from, to, amount })
+      .then(() => {
+        router.loadPage('exchange');
+      })
+      .catch((err) => {
+        errorDisplay.textContent = err;
+      });
   });
 
   return page;
