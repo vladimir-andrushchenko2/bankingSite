@@ -2,8 +2,15 @@ import api from '../components/api';
 import getPageTemplate from '../utils/getPageTemplate';
 import fillBarChart from '../fillElementWithData/fillBarChart';
 import fillHistoryTable from '../fillElementWithData/fillHistoryTable';
+import handleHistory from '../utils/handleHistory';
 
-export default function singleAccountPage(router, accountId) {
+export default function singleAccountPage(
+  router,
+  accountId,
+  { historyOption } = { historyOption: 'push' }
+) {
+  handleHistory(historyOption, `/account/${accountId}`);
+
   const page = getPageTemplate('account-page');
   const idDisplay = page.querySelector('.account-id');
   const balanceDisplay = page.querySelector('.balance');
@@ -13,33 +20,36 @@ export default function singleAccountPage(router, accountId) {
 
   page.querySelector('.go-back-link').addEventListener('click', (event) => {
     event.preventDefault();
-    router.loadPage('accounts');
+    window.history.back();
   });
 
-  makeTransferForm.addEventListener('submit', (event) => {
-    event.preventDefault();
+  // makeTransferForm.addEventListener('submit', (event) => {
+  makeTransferForm
+    .querySelector('.transfer-submit')
+    .addEventListener('click', (event) => {
+      event.preventDefault();
 
-    const receiverInput = makeTransferForm.querySelector(
-      '#receiver-account-number'
-    );
+      const receiverInput = makeTransferForm.querySelector(
+        '#receiver-account-number'
+      );
 
-    const errorDisplay = makeTransferForm.querySelector('.error-display');
+      const errorDisplay = makeTransferForm.querySelector('.error-display');
 
-    const amount = makeTransferForm.querySelector('#transfer-money-amount');
+      const amount = makeTransferForm.querySelector('#transfer-money-amount');
 
-    api
-      .postTransferFunds({
-        from: accountId,
-        to: receiverInput.value,
-        amount: amount.value,
-      })
-      .then(() => {
-        router.loadPage('account', accountId);
-      })
-      .catch((err) => {
-        errorDisplay.textContent = err;
-      });
-  });
+      api
+        .postTransferFunds({
+          from: accountId,
+          to: receiverInput.value,
+          amount: amount.value,
+        })
+        .then(() => {
+          router.loadPage('account', accountId);
+        })
+        .catch((err) => {
+          errorDisplay.textContent = err;
+        });
+    });
 
   api
     .getAccount({ id: accountId })
@@ -52,11 +62,7 @@ export default function singleAccountPage(router, accountId) {
       fillHistoryTable(historyTableBody, transactions, accountId);
 
       page.querySelector('.history').addEventListener('click', () => {
-        router.loadPage('history', {
-          transactions,
-          accountId,
-          balance,
-        });
+        router.loadPage('history', accountId);
       });
     });
 

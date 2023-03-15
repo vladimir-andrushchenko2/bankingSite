@@ -2,11 +2,16 @@ import getPageTemplate from '../utils/getPageTemplate';
 import fillBarChart from '../fillElementWithData/fillBarChart';
 import fillHistoryTable from '../fillElementWithData/fillHistoryTable';
 import fillActivityBarChart from '../fillElementWithData/fillActivityBarChart';
+import api from '../components/api';
+import handleHistory from '../utils/handleHistory';
 
 export default function historyPage(
   router,
-  { transactions, accountId, balance }
+  accountId,
+  { historyOption } = { historyOption: 'push' }
 ) {
+  handleHistory(historyOption, `/history/${accountId}`);
+
   const page = getPageTemplate('history-page');
   const barChart = page.querySelector(
     '.bar-chart-balance-wrapper.balance-dynamic'
@@ -20,16 +25,19 @@ export default function historyPage(
 
   page.querySelector('.go-back-link').addEventListener('click', (event) => {
     event.preventDefault();
-    router.loadPage('account', accountId);
+    window.history.back();
   });
 
   idDisplay.textContent = accountId;
-  balanceDisplay.textContent = `${balance} ₽`;
 
-  fillBarChart(barChart, transactions, accountId);
-  fillActivityBarChart(actitityBarChart, transactions, accountId);
+  api.getAccount({ id: accountId }).then(({ transactions, balance }) => {
+    balanceDisplay.textContent = `${balance} ₽`;
 
-  fillHistoryTable(historyTableBody, transactions, accountId);
+    fillBarChart(barChart, transactions, accountId);
+    fillActivityBarChart(actitityBarChart, transactions, accountId);
+
+    fillHistoryTable(historyTableBody, transactions, accountId);
+  });
 
   return page;
 }

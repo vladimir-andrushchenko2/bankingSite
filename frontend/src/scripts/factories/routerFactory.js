@@ -1,4 +1,5 @@
 import Router from '../components/router';
+import api from '../components/api';
 
 import login from '../pages/loginPage';
 import history from '../pages/historyPage';
@@ -19,28 +20,40 @@ const router = new Router({
   },
 });
 
-router
-  .setClickOnElementWithClassToLeadTo({
-    className: 'map-link',
-    pageName: 'map',
-  })
-  .setClickOnElementWithClassToLeadTo({
-    className: 'exit-link',
-    pageName: 'login',
-  })
-  .setClickOnElementWithClassToLeadTo({
-    className: 'accounts-link',
-    pageName: 'accounts',
-  })
-  .setClickOnElementWithClassToLeadTo({
-    className: 'currencies-link',
-    pageName: 'exchange',
-  })
-  .setClickOnElementWithClassToLeadTo({
-    className: 'logo',
-    pageName: 'accounts',
-  });
+function hasClass(element, className) {
+  return element.classList.contains(className);
+}
 
-router.setEventListeners();
+const settings = {
+  historyOption: 'push',
+};
+
+document.addEventListener('click', (event) => {
+  event.preventDefault();
+
+  const { target } = event;
+
+  if (hasClass(target, 'map-link')) {
+    router.loadPage('map', undefined, settings);
+  }
+
+  if (hasClass(target, 'exit-link')) {
+    router.loadPage('login', undefined, settings);
+    api.logout();
+    document.querySelector('.nav').classList.remove('nav_opened');
+  }
+
+  if (hasClass(target, 'accounts-link')) {
+    router.loadPage('accounts', undefined, settings);
+  }
+
+  if (hasClass(target, 'currencies-link')) {
+    router.loadPage('exchange', undefined, settings);
+  }
+
+  if (hasClass(target, 'logo')) {
+    router.loadPage('accounts', undefined, settings);
+  }
+});
 
 export default router;

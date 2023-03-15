@@ -310,7 +310,7 @@ label[for='password-input'] {
 }
 
 .transfer-submit {
-  background: #116acc;
+  background-color: #116acc;
   color: white;
   border-radius: 7px;
   border: 0;
@@ -318,6 +318,9 @@ label[for='password-input'] {
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
+  background-image: url('../img/ui/email-symbol.svg');
+  background-repeat: no-repeat;
+  background-position: left 20px center;
 }
 
 .bar-chart-balance-wrapper {

@@ -1,14 +1,21 @@
 import getPageTemplate from '../utils/getPageTemplate';
 import api from '../components/api';
+import handleHistory from '../utils/handleHistory';
 
-export default function loginPage(router) {
+export default function loginPage(
+  router,
+  accountId,
+  { historyOption } = { historyOption: 'push' }
+) {
+  handleHistory(historyOption, '/login');
+
   const page = getPageTemplate('login-page');
 
   const form = page.querySelector('.login-form');
 
-  form.addEventListener('submit', (event) => {
+  // form.addEventListener('submit', (event) => {
+  form.querySelector('.input-submit').addEventListener('click', (event) => {
     event.preventDefault();
-
     const login = document.getElementById('login-input').value;
     const password = document.getElementById('password-input').value;
     const errorDisplay = form.querySelector('.error-display');

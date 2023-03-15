@@ -2,26 +2,47 @@ import './styles';
 
 import appRouter from './factories/routerFactory';
 
-import api from './components/api';
+function invokeLoadPageFromUrl(historyOption) {
+  const route = window.location.hash.slice(1);
+  const pathItems = route.split('/').filter((item) => item !== '');
 
-if (localStorage.getItem('Authorization')) {
-  console.log(window.location.pathname);
+  if (route === '') {
+    appRouter.loadPage('accounts', undefined, { historyOption });
+    return;
+  }
 
-  appRouter.loadPage('accounts');
+  let pathname;
+  let id;
 
-  document.querySelector('.nav').classList.add('nav_opened');
-} else {
-  appRouter.loadPage('login');
+  if (pathItems.length > 1) {
+    [pathname, id] = pathItems;
+  } else {
+    [pathname] = pathItems;
+  }
+
+  // startsWith without '/' bc it was removed during split('/') earlier
+  if (pathname.startsWith('accounts')) {
+    appRouter.loadPage('accounts', undefined, { historyOption });
+  } else if (pathname.startsWith('account')) {
+    appRouter.loadPage('account', id, { historyOption });
+  } else if (pathname.startsWith('map')) {
+    appRouter.loadPage('map', undefined, { historyOption });
+  } else if (pathname.startsWith('exchange')) {
+    appRouter.loadPage('exchange', undefined, { historyOption });
+  } else if (pathname.startsWith('history')) {
+    appRouter.loadPage('history', id, { historyOption });
+  } else {
+    throw new Error('404');
+  }
 }
 
-document.querySelector('.exit-link').addEventListener('click', (event) => {
-  event.preventDefault();
-  api.logout();
+if (localStorage.getItem('Authorization')) {
+  invokeLoadPageFromUrl('replace');
+  document.querySelector('.nav').classList.add('nav_opened');
+} else {
+  appRouter.loadPage('login', undefined, { historyOption: 'replace' });
+}
 
-  document.querySelector('.nav').classList.remove('nav_opened');
+window.addEventListener('popstate', () => {
+  invokeLoadPageFromUrl('none');
 });
-
-// Todo
-// - add validation
-// - add navigation
-// - fix layout

@@ -14,7 +14,6 @@ module.exports = (env) => ({
     new MiniCssExtractPlugin(),
   ],
   output: {
-    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
   module: {

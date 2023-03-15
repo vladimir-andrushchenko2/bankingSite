@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import getPageTemplate from '../utils/getPageTemplate';
+import handleHistory from '../utils/handleHistory';
 
 import api from '../components/api';
 
@@ -7,7 +8,13 @@ function parseMapData(data) {
   return data.map(({ lat, lon }) => [lat, lon]);
 }
 
-export default function mapPage() {
+export default function mapPage(
+  router,
+  accountId,
+  { historyOption } = { historyOption: 'push' }
+) {
+  handleHistory(historyOption, '/map');
+
   const page = getPageTemplate('map-page');
 
   api.getBankLocations().then((data) => {

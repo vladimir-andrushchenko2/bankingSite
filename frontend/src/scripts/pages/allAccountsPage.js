@@ -2,6 +2,7 @@ import getPageTemplate from '../utils/getPageTemplate';
 import getTemplate from '../utils/getTemplate';
 import api from '../components/api';
 import parseDate from '../utils/parseDate';
+import handleHistory from '../utils/handleHistory';
 
 function makeCard({ account, balance, transactions }, router) {
   const card = getTemplate('account-card-template', '.account-card');
@@ -36,8 +37,11 @@ function getTime(account) {
 
 export default function allAccountsPage(
   router,
-  { cachedAccounts, sortedOption } = {}
+  { cachedAccounts, sortedOption } = {},
+  { historyOption } = { historyOption: 'push' }
 ) {
+  handleHistory(historyOption, '/accounts');
+
   const page = getPageTemplate('accounts-page');
   const accountsList = page.querySelector('.accounts-list');
   const sortSelect = page.querySelector('.sort-select');
@@ -49,7 +53,11 @@ export default function allAccountsPage(
 
   if (!cachedAccounts) {
     api.getAccounts().then((accounts) => {
-      router.loadPage('accounts', { cachedAccounts: accounts });
+      router.loadPage(
+        'accounts',
+        { cachedAccounts: accounts },
+        { historyOption: 'replace' }
+      );
     });
 
     // return empty page while accounts are loading
