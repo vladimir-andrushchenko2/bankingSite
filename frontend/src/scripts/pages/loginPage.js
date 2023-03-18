@@ -13,8 +13,7 @@ export default function loginPage(
 
   const form = page.querySelector('.login-form');
 
-  // form.addEventListener('submit', (event) => {
-  form.querySelector('.input-submit').addEventListener('click', (event) => {
+  form.addEventListener('submit', (event) => {
     event.preventDefault();
     const login = document.getElementById('login-input').value;
     const password = document.getElementById('password-input').value;

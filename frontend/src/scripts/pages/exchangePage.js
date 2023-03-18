@@ -104,27 +104,24 @@ export default function exchangePage(
     });
   });
 
-  // exchangeForm.addEventListener('submit', (event) => {
-  exchangeForm
-    .querySelector('.currency-exchange-submit')
-    .addEventListener('click', (event) => {
-      event.preventDefault();
+  exchangeForm.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-      const [from, to, amount] = [
-        exchangeFromInput.value,
-        exchangeToInput.value,
-        exchangeAmountInput.value,
-      ];
+    const [from, to, amount] = [
+      exchangeFromInput.value,
+      exchangeToInput.value,
+      exchangeAmountInput.value,
+    ];
 
-      api
-        .postCurrencyBuy({ from, to, amount })
-        .then(() => {
-          router.loadPage('exchange');
-        })
-        .catch((err) => {
-          errorDisplay.textContent = err;
-        });
-    });
+    api
+      .postCurrencyBuy({ from, to, amount })
+      .then(() => {
+        router.loadPage('exchange');
+      })
+      .catch((err) => {
+        errorDisplay.textContent = err;
+      });
+  });
 
   return page;
 }

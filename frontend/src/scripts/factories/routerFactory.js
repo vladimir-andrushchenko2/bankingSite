@@ -29,9 +29,11 @@ const settings = {
 };
 
 document.addEventListener('click', (event) => {
-  event.preventDefault();
-
   const { target } = event;
+
+  if (target.tagName === 'A') {
+    event.preventDefault();
+  }
 
   if (hasClass(target, 'map-link')) {
     router.loadPage('map', undefined, settings);
